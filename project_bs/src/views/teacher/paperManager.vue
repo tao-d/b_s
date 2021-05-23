@@ -636,7 +636,6 @@
             top="10vh"
             class="abow_dialog dialogVisibleAddPaper"
           >
-
         </el-dialog> -->
           <el-dialog
             title="添加试卷"
@@ -824,15 +823,6 @@ export default {
   },
   data() {
     var validatePass = (rule, value, callback) => {
-      // let RegExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/g;
-      // console.log(value);
-      // if (value.length < 8) {
-      //   // console.log(value.length);
-      //   callback(new Error("新密码需要大于8位"));
-      // }
-      // if (!RegExp.test(value)) {
-      //   callback(new Error("密码要包含数字字母 不能以数字开头 8-16位"));
-      // }
       if (value === "") {
         callback(new Error("不能为空"));
       } else {
@@ -1471,7 +1461,7 @@ export default {
           item.answer = JSON.parse(item.answer);
           // console.log(item.questionContent);
           item.questionContent = JSON.parse(item.questionContent);
-
+          console.log(item);
           item.imgUrl = JSON.parse(item.imgUrl);
 
           switch (item.questionType) {

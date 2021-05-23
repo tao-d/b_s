@@ -890,7 +890,6 @@ export default {
         },
       }).then((res) => {
         let data = res.data.data;
-        this.examInformations = {};
         data.forEach((item) => {
           // console.log(item);
           let typeArray = item.questionType.split(" ");
@@ -956,7 +955,6 @@ export default {
       }).then((res) => {
         if (res.data.code == 1) {
           let data = res.data.data[0];
-          // this.examInformations =
           this.examInformations = data;
           console.log(this.examInformations);
         }

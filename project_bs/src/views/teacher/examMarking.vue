@@ -82,7 +82,7 @@
           @current-change="handleCurrentChange"
           :current-page="pagination.currPage"
           :page-sizes="[10, 20]"
-          :page-size="10"
+          :page-size="pagination.pageSize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="examNewList.length"
         >
@@ -133,10 +133,10 @@ export default {
     };
   },
   created() {
-    this.getMyPaperList();
-    this.getClassList();
+    // this.getMyPaperList();
+    // this.getClassList();
     this.getFinishExamList();
-    this.getServerTime();
+    // this.getServerTime();
   },
   methods: {
     //进入批阅按钮

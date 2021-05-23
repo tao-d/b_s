@@ -38,6 +38,10 @@
         <div id="hgrs" style="width: 600px; height: 400px"></div>
         <!-- 各题正确率 -->
         <div id="singleCorrect" style="width: 1200px; height: 400px"></div>
+        <!-- 各题正确率 -->
+        <div id="multipleCorrect" style="width: 1200px; height: 400px"></div>
+        <!-- 各题正确率 -->
+        <div id="judgementCorrect" style="width: 1200px; height: 400px"></div>
       </div>
       <div class="mark-detail-student" v-if="activeExam != ''">
         <p class="title">成绩详细</p>
@@ -576,8 +580,10 @@ export default {
             return b.studentGrade - a.studentGrade;
           });
           this.studentGradeNewList = this.studentGradeList;
+          console.log(this.studentGradeList);
           this.studentGradeList.forEach((item) => {
             let detail = JSON.parse(item.detail);
+            // console.log(detail);
             detail.forEach((item) => {
               let indexSingle = this.singleChoiceList.findIndex(
                 (item1) => item.questionId == item1.examQuestionId
@@ -588,35 +594,37 @@ export default {
               let indexJudgement = this.judgementList.findIndex(
                 (item1) => item.questionId == item1.examQuestionId
               );
-
+              
               if (indexSingle != -1) {
                 if (this.singleChoiceListCorrect[indexSingle] === undefined) {
                   this.singleChoiceListCorrect[indexSingle] = 0;
-                } else {
+                } 
                   if (item.isTrue) {
                     this.singleChoiceListCorrect[indexSingle]++;
                   }
-                }
+                
               }
               if (indexMultiple != -1) {
                 if (
                   this.multipleChoiceListCorrect[indexMultiple] === undefined
                 ) {
                   this.multipleChoiceListCorrect[indexMultiple] = 0;
-                } else {
+                } 
                   if (item.isTrue) {
                     this.multipleChoiceListCorrect[indexMultiple]++;
                   }
-                }
+                
               }
               if (indexJudgement != -1) {
+                console.log(item);
                 if (this.judgementListCorrect[indexJudgement] === undefined) {
                   this.judgementListCorrect[indexJudgement] = 0;
-                } else {
+                } 
+                  
                   if (item.isTrue) {
                     this.judgementListCorrect[indexJudgement]++;
                   }
-                }
+                
               }
             });
           });
@@ -763,7 +771,6 @@ export default {
       //处理各阶段人数
       for (let i = 0; i < this.studentList.length; i++) {
         // mark+=this.studentList[i].studentGrade
-        console.log(this.studentList[i].studentGrade);
         dataCheck.forEach((item) => {
           if (
             this.studentList[i].studentGrade <= item.endMark &&
@@ -881,7 +888,7 @@ export default {
         },
         tooltip: {},
         legend: {
-          data: ["单选题正确率"],
+          data: ["正确率"],
         },
         xAxis: {
           data: [],
@@ -900,10 +907,14 @@ export default {
           },
         ],
       };
+      console.log(this.singleChoiceListCorrect.length);
       for (let i = 0; i < this.singleChoiceListCorrect.length; i++) {
-        optionCorrect.xAxis.data.push("单选题" + i);
+        optionCorrect.xAxis.data.push("单选题" + (i+1));
+        optionCorrect.series[0].data.push(this.singleChoiceListCorrect[i])
       }
-      optionCorrect.series[0].data = this.singleChoiceListCorrect;
+      // optionCorrect.series[0].data = this.singleChoiceListCorrect;
+      console.log(optionCorrect.series[0].data);
+      // optionHGRS.series[0].data = dataCheck.map((item) => item.count);
 
       this.drawSingleCorrect("singleCorrect", optionCorrect);
     },
@@ -916,11 +927,11 @@ export default {
     handleMultipleCorrect() {
       let optionCorrect = {
         title: {
-          text: "单选题正确率",
+          text: "多选题正确率",
         },
         tooltip: {},
         legend: {
-          data: ["单选题正确率"],
+          data: ["正确率"],
         },
         xAxis: {
           data: [],
@@ -940,7 +951,7 @@ export default {
         ],
       };
       for (let i = 0; i < this.multipleChoiceListCorrect.length; i++) {
-        optionCorrect.xAxis.data.push(i);
+        optionCorrect.xAxis.data.push('多选题'+(i+1));
       }
       optionCorrect.series[0].data = this.multipleChoiceListCorrect;
 
@@ -955,11 +966,11 @@ export default {
     handleJudgementCorrect() {
       let optionCorrect = {
         title: {
-          text: "单选题正确率",
+          text: "判断题正确率",
         },
         tooltip: {},
         legend: {
-          data: ["单选题正确率"],
+          data: ["正确率"],
         },
         xAxis: {
           data: [],
@@ -979,10 +990,11 @@ export default {
         ],
       };
       for (let i = 0; i < this.judgementListCorrect.length; i++) {
-        optionCorrect.xAxis.data.push("单选题" + i);
+        optionCorrect.xAxis.data.push("判断题" + (i+1));
+        optionCorrect.series[0].data.push(this.judgementListCorrect[i])
       }
-      optionCorrect.series[0].data = this.judgementListCorrect;
-
+      // optionCorrect.series[0].data = this.judgementListCorrect;
+      console.log(optionCorrect.series[0].data);
       this.drawJudgementCorrect("judgementCorrect", optionCorrect);
     },
     drawJudgementCorrect(id, optionCorrect) {

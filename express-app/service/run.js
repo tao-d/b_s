@@ -367,7 +367,6 @@ class exams {
     making.forEach(async item => {
       console.log('examMaking',item.studentmaking);
       if (item.studentmaking == undefined || item.studentmaking == null) {
-        
         await examMysqlDao.examMakingUpdate({
           studentId: item.studentId,
           examId: this.examId,

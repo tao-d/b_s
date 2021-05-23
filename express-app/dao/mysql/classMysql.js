@@ -31,7 +31,7 @@ module.exports = {
     // console.log(checkSQL);
     console.log(item);
     return new Promise((resolve, reject) => {
-      let SQL = `insert into examclass (classId,teacherId,studentIds,classStatus,className,studentCount,classInformations,classCount,course,createTime,updateTime,lineStatus) values (REPLACE(UUID(),"-",""),?,NULL,?,?,?,?,?,?,NOW(),NOW(),1)`
+      let SQL = `insert into examclass (classId,teacherId,classStatus,className,studentCount,classInformations,classCount,course,createTime,updateTime,lineStatus) values (REPLACE(UUID(),"-",""),?,?,?,?,?,?,?,NOW(),NOW(),1)`
       // let checkSQL = `select img_url from users where 1=1 and id=?`;
       console.log(SQL);
       mysqlConnect.query(SQL,[item.teacherId,item.classStatus,item.className,item.studentCount,item.classInformations,item.classCount,item.course], (err, result) => {

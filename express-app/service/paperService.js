@@ -333,14 +333,14 @@ module.exports = {
         paperId,
       })
       //count更新
-
+      console.log();
       await paperMysqlDao.paperCountChange({
         paperId
       }, type[0] + 'Count', 1, '-')
       await paperMysqlDao.paperCountChange({
         paperId
       }, 'questionCount', 1, '-')
-      if (type == 'choice') {
+      if (type[0] == 'choice') {
         await paperMysqlDao.paperCountChange({
           paperId
         }, type[1] + 'Count', 1, '-')

@@ -5,6 +5,11 @@
 <script>
 export default {
   name:'changePassword',
+  data(){
+    return {
+      
+    }
+  },
   
 }
 </script>

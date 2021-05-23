@@ -247,13 +247,13 @@ module.exports = {
         }, 'count(*) as count'))[0].count
 
         //获取未批阅的人数
-        let examNotMarkingCount = (await examMysqlDao.studentAndGradeSelect({
+        let examMarkingCount = (await examMysqlDao.studentAndGradeSelect({
           ['studentgrade.examId']: item.examId,
-          gradeStatus: 0,
+          gradeStatus: 2,
         }, 'count(*) as count'))[0].count
         item.examStudentCount = examStudentCount
-        item.examNotMarkingCount = examNotMarkingCount
-        console.log(examNotMarkingCount);
+        item.examNotMarkingCount = examStudentCount - examMarkingCount
+        console.log(examMarkingCount);
       }
     }
     return result
@@ -312,6 +312,7 @@ module.exports = {
     if (role == 'teacher') {
       result = await examMysqlDao.examFinishedMarkListSelect({
         teacherId,
+        lineStatus:1,
       }, '*')
       for (let item of result) {
         //获取考试的总人数

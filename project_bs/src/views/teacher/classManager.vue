@@ -88,8 +88,10 @@
               label="班级信息"
               align="center"
             >
-            <template slot-scope="scope">
-                <span class="class-informations-row">{{scope.row.classInformations}}</span>
+              <template slot-scope="scope">
+                <span class="class-informations-row">{{
+                  scope.row.classInformations
+                }}</span>
                 <!-- <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
@@ -354,12 +356,19 @@
         top="10vh"
       >
         <div class="search">
-          <el-input           
-          size="mini"
-          v-model="studentDetailSearch"
-          placeholder="输入关键字搜索"></el-input>
+          <el-input
+            size="mini"
+            v-model="studentDetailSearch"
+            placeholder="输入关键字搜索"
+          ></el-input>
         </div>
-        <el-table :data="studentDetailNewList" style="width: 100%" stripe border height="500">
+        <el-table
+          :data="studentDetailNewList"
+          style="width: 100%"
+          stripe
+          border
+          height="500"
+        >
           <el-table-column
             prop="account"
             label="学号"
@@ -390,11 +399,7 @@
             class="addStudent"
           >
           </el-table-column>
-          <el-table-column
-            prop="createTime"
-            label="加入时间"
-            align="center"
-          >
+          <el-table-column prop="createTime" label="加入时间" align="center">
           </el-table-column>
         </el-table>
       </el-dialog>
@@ -457,7 +462,6 @@ export default {
         currPage: 1, //当前页数
       },
 
-      
       //新建班级表单
       classForm: {
         course: "",
@@ -474,13 +478,13 @@ export default {
       },
 
       //修改班级学生成员
-      classNewList:[],
-      classList:[],
+      classNewList: [],
+      classList: [],
 
       //班级成员详细
-      studentDetailNewList:[],
+      studentDetailNewList: [],
       studentDetailList: [],
-      studentDetailSearch:'',
+      studentDetailSearch: "",
 
       //穿梭框
       transferList: [],
@@ -573,17 +577,20 @@ export default {
     this.getClassList();
   },
   updated() {},
-  watch:{
-    studentDetailSearch(val){
+  watch: {
+    studentDetailSearch(val) {
       // console.log(val);
-      let regexp = new RegExp(val)
-      this.studentDetailNewList = this.studentDetailList.filter( item => regexp.test(item.username)||regexp.test(item.account) );
+      let regexp = new RegExp(val);
+      this.studentDetailNewList = this.studentDetailList.filter(
+        (item) => regexp.test(item.username) || regexp.test(item.account)
+      );
     },
-    courseSearch(val){
-
-      let regexp1 = new RegExp(val)
+    courseSearch(val) {
+      let regexp1 = new RegExp(val);
       // let regexp2 = new RegExp(this.classNameSearch)
-      this.classNewList = this.classList.filter( item => regexp1.test(item.course)||regexp1.test(item.className));
+      this.classNewList = this.classList.filter(
+        (item) => regexp1.test(item.course) || regexp1.test(item.className)
+      );
       console.log(this.classNewList);
     },
     // classNameSearch(val){
@@ -646,18 +653,22 @@ export default {
         },
       }).then((res) => {
         console.log(res.data);
-        this.studentDetailNewList = this.studentDetailList = res.data.map((item) => {
-          // let d = new Date(item.createTime)
-          return {
-            account:item.account,
-            sex:item.sex===0?'男':'女',
-            username:item.username,
-            role:item.role===0?'学生':'教师',
-            classOrder:item.classOrder,
-            // createTime:`${d.getFullYear()}-${d.getMonth()}-${d.getDate()-1} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
-            createTime:this.$moment(item.createTime).format('YYYY-MM-DD mm:ss')
-          };
-        });
+        this.studentDetailNewList = this.studentDetailList = res.data.map(
+          (item) => {
+            // let d = new Date(item.createTime)
+            return {
+              account: item.account,
+              sex: item.sex === 0 ? "男" : "女",
+              username: item.username,
+              role: item.role === 0 ? "学生" : "教师",
+              classOrder: item.classOrder,
+              // createTime:`${d.getFullYear()}-${d.getMonth()}-${d.getDate()-1} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`,
+              createTime: this.$moment(item.createTime).format(
+                "YYYY-MM-DD mm:ss"
+              ),
+            };
+          }
+        );
       });
     },
 
@@ -832,6 +843,17 @@ export default {
           classCount: this.classForm.classCount,
           classInformations: this.classForm.classInformations,
         },
+      }).then((res) => {
+        if (res.data.code == 1) {
+          this.$notify({
+            title: "新建成功",
+            message: "新建班级成功",
+            duration: 3000,
+            type: "success",
+          });
+          this.dialogVisible = false
+          this.getClassList()
+        }
       });
     },
   },
@@ -967,15 +989,16 @@ export default {
 //修改穿梭框样式
 /deep/ .el-transfer-panel__list.is-filterable {
   width: 300px !important;
-  height: 500px !important;
+  height: 50vh !important;
 }
 
 /deep/ .el-transfer-panel {
   width: 300px !important;
-  height: 500px !important;
+  height: 50vh !important;
+  overflow-y: auto;
 }
 //班级休息选项行省略号
-.class-informations-row{
+.class-informations-row {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

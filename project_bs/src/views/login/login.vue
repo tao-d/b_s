@@ -8,9 +8,9 @@
           :ref="loginForm"
           @keyup.enter.native="getUserName()"
         >
-          <el-form-item label="学号" label-position="right">
+          <el-form-item label="账号" label-position="right">
             <el-input
-              placeholder="输入学号"
+              placeholder="输入账号"
               id="loginUsername"
               v-model="loginForm.username"
               size="medium"
@@ -71,10 +71,8 @@ export default {
       }).then((res) => {
         //将token存储到localStorage
         if (res.data.token) {
-          console.log(res.data.token);
           window.localStorage.setItem("token", res.data.token);
         }
-        console.log(res);
         switch (res.data.msg) {
           case "lose": {
             // console.log('lose不跳转');
@@ -83,7 +81,6 @@ export default {
           }
           case "success": {
             // console.log('sucess跳转');
-            console.log(res);
             switch(res.data.role){
               case 0:{
                 this.$router.push('/index')

@@ -878,6 +878,7 @@ export default {
     }
     .main-right {
       overflow: auto;
+      height: 70vh;
       .lizi {
         margin-top: 10px;
         font-size: 14px;
