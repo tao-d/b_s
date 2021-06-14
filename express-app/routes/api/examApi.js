@@ -6,7 +6,7 @@ const examService = require('../../service/examService.js')
 router.post('/createExam', async (req, res) => {
   let query = req.body
   let result = await examService.createExam(req.user, query)
-  console.log(result);
+
   if (result) {
     res.json({
       msg: 'success',
@@ -59,7 +59,7 @@ router.post('/getStudentExamPower', async (req, res) => {
 router.get('/getMyClassList', async (req, res) => {
   // let query = req.body
   let result = await classService.getMyClassList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -78,7 +78,7 @@ router.get('/getMyClassList', async (req, res) => {
 router.post('/updateClass', async (req, res) => {
   let query = req.body
   let result = await classService.updateClass(req.user, query)
-  // console.log(result);
+  //  ;
   if (result.code == 1) {
     res.json({
       msg: 'success',
@@ -96,7 +96,7 @@ router.post('/updateClass', async (req, res) => {
 router.post('/deleteClass', async (req, res) => {
   let query = req.body
   let result = await classService.deleteClass(req.user, query)
-  // console.log(result);
+  //  ;
   if (result.code == 1) {
     res.json({
       msg: 'success',
@@ -113,7 +113,7 @@ router.post('/deleteClass', async (req, res) => {
 
 router.get('/getClassStudent', async (req, res) => {
   let param = req.query
-  console.log(param);
+
   let result = await classService.classStudent(req.user, param)
   res.json(result)
 })
@@ -126,7 +126,6 @@ router.post('/changeMyClassStudent', async (req, res) => {
 
 router.get('/getMyClassStudentDetail', async (req, res) => {
   let param = req.query
-  console.log(param);
   let result = await classService.myClassStudentDetail(req.user, param)
   res.json(result)
 })
@@ -134,7 +133,7 @@ router.get('/getMyClassStudentDetail', async (req, res) => {
 router.get('/getMyExamList', async (req, res) => {
   // let query = req.body
   let result = await examService.getMyExamList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -153,7 +152,7 @@ router.get('/getMyExamList', async (req, res) => {
 //学生获取考试信息列表(未考试)
 router.get('/getStudentExamList', async (req, res) => {
   let result = await examService.getStudentExamList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -172,7 +171,7 @@ router.get('/getStudentExamList', async (req, res) => {
 //学生获取已完成或待批阅考试信息列表(已完成)
 router.get('/getStudentFinishExamList', async (req, res) => {
   let result = await examService.getStudentFinishExamList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -191,7 +190,7 @@ router.get('/getStudentFinishExamList', async (req, res) => {
 //老师获取已完成或待批阅考试信息列表
 router.get('/getFinishExamList', async (req, res) => {
   let result = await examService.getFinishExamList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -211,7 +210,7 @@ router.get('/getFinishExamList', async (req, res) => {
 //老师获取已完成考试信息列表
 router.get('/getFinishMarkExamList', async (req, res) => {
   let result = await examService.getFinishMarkExamList(req.user)
-  console.log(result);
+   ;
   if (result.length > 0) {
     res.json({
       msg: 'success',
@@ -230,9 +229,8 @@ router.get('/getFinishMarkExamList', async (req, res) => {
 //关闭考试
 router.post('/closeExam', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await examService.closeExam(req.user,query)
-  console.log(result);
+   ;
   if (result.code==1) {
     res.json({
       msg: 'success',
@@ -250,9 +248,7 @@ router.post('/closeExam', async (req, res) => {
 //删除考试
 router.post('/deleteExam', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await examService.deleteExam(req.user,query)
-  console.log(result);
   if (result.code==1) {
     res.json({
       msg: 'success',
@@ -271,9 +267,7 @@ router.post('/deleteExam', async (req, res) => {
 //开启考试
 router.post('/openExam', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await examService.openExam(req.user,query)
-  console.log(result);
   if (result.code==1) {
     res.json({
       msg: 'success',
@@ -292,9 +286,7 @@ router.post('/openExam', async (req, res) => {
 //撤销批阅
 router.post('/revokeMark', async (req, res) => {
   let query = req.body
-  // console.log(query);
   let result = await examService.revokeMark(req.user,query)
-  // console.log(result);
   if (result.code==1) {
     res.json({
       msg: 'success',
@@ -349,7 +341,7 @@ router.post('/getStudentExamInformations', async (req, res) => {
 router.post('/commitStudentExam', async (req, res) => {
   let query = req.body
   let result = await examService.commitStudentExam(req.user,query)
-  console.log(result);
+   ;
   res.json(result).status(200)
 }),
 router.post('/getStudentAdmin', async (req, res) => {

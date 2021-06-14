@@ -5,7 +5,6 @@ const classService = require('../../service/classService.js')
 router.post('/createClass',async(req,res)=>{
     let query = req.body
     let result = await classService.createClass(req.user,query)
-    console.log(result);
     if(result){
         res.json({
           msg:'success',
@@ -23,7 +22,6 @@ router.post('/createClass',async(req,res)=>{
  router.get('/getMyClassList',async(req,res)=>{
     // let query = req.body
     let result = await classService.getMyClassList(req.user)
-    console.log(result);
     if(result.length>0){
         res.json({
           msg:'success',
@@ -42,7 +40,6 @@ router.post('/createClass',async(req,res)=>{
  router.post('/updateClass',async(req,res)=>{
     let query = req.body
     let result = await classService.updateClass(req.user,query)
-    // console.log(result);
     if(result.code==1){
         res.json({
           msg:'success',
@@ -60,7 +57,6 @@ router.post('/createClass',async(req,res)=>{
  router.post('/deleteClass',async(req,res)=>{
     let query = req.body
     let result = await classService.deleteClass(req.user,query)
-    // console.log(result);
     if(result.code==1){
         res.json({
           msg:'success',
@@ -77,7 +73,6 @@ router.post('/createClass',async(req,res)=>{
 
  router.get('/getClassStudent',async(req,res)=>{
    let param = req.query
-   console.log(param);
    let result = await classService.classStudent(req.user,param)
    res.json(result)
  })
@@ -90,7 +85,6 @@ router.post('/createClass',async(req,res)=>{
 
 router.get('/getMyClassStudentDetail',async(req,res)=>{
   let param = req.query
-  console.log(param);
   let result = await classService.myClassStudentDetail(req.user,param)
   res.json(result)
 })

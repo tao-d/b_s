@@ -18,6 +18,8 @@ exports.generateToken = function(userId,account,role){
 exports.verifyToken = function(e){
   return new Promise((resolve,reject)=>{
 		let info = jwt.verify(e,secret);
+    // console.log(e);
+    // console.log(info);
 		resolve(info);
 	})
 }

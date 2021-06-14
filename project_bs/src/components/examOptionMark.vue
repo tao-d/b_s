@@ -281,15 +281,16 @@
       >
       </el-input>
       <b class="my-answer">学生答案：</b>
-      <el-input
+      <!-- <el-input
         type="textarea"
         :rows="8"
         v-model="optionMyAnswer"
         class="answer-text"
         :readonly="true"
       >
-      </el-input>
-
+      </el-input> -->
+      <div class="student-answer" v-html="optionMyAnswer">
+      </div>
       <span class="my-answer" style="color: #f56c6c"
         >试题分数：{{ questionZongMark }}分</span
       >
@@ -335,6 +336,27 @@ export default {
   methods: {
     handleDialogClick(fit){
       this.$emit('clickImg',fit)
+    },
+    optionAnswerList() {
+      this.optionAnswer = this.optionAnswerValue;
+      //改变答案的排序，以A、B、C排列
+      if (this.optionTypeValue === "choice multipleChoice") {
+        this.multipleChoiceAnswer = [];
+        for (let i = 0; i < this.optionMyAnswerValue.length; i++) {
+          this.multipleChoiceAnswer.push(
+            String.fromCharCode(
+              65 +
+                this.optionContent.findIndex(
+                  (itemIn) => itemIn == this.optionMyAnswerValue[i]
+                )
+            )
+          );
+        }
+        this.multipleChoiceAnswer.sort();
+        console.log(this.multipleChoiceAnswer);
+      }
+
+      this.optionMark = 0;
     },
     questionMarkChange() {
       this.$emit("giveMark", {
@@ -446,6 +468,7 @@ export default {
     console.log(this.optionTypeValue);
     console.log("optionMyAnswer", this.optionMyAnswer);
     this.optionMark = this.questionMark;
+    this.optionAnswerList()
     console.log("optionMark", this.optionMark);
   },
   props: {
@@ -553,6 +576,12 @@ export default {
     span {
       color: red;
     }
+  }
+  .student-answer{
+    padding: 5px 15px;
+    min-height: 200px;
+    border: 1px solid gray;
+    border-radius: 5px;
   }
   .mark {
     margin-top: 20px;

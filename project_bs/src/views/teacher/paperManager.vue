@@ -10,7 +10,7 @@
         </div>
         <div class="search">
           <el-input
-            v-model="courseSearch"
+            v-model="paperSearch"
             placeholder="试卷题目"
             size="small"
           ></el-input>
@@ -66,9 +66,11 @@
             <el-table-column
               prop="paperType"
               label="试卷类型"
-              width="180"
               align="center"
             >
+             <template slot-scope="scope">
+                <span>{{scope.row.paperType==1?'普通':'特殊'}}</span>
+              </template>
             </el-table-column>
             <el-table-column
               prop="questionCount"
@@ -84,14 +86,14 @@
               class="passMark"
             >
             </el-table-column>
-            <el-table-column prop="updateTime" label="更新时间" align="center">
+            <el-table-column prop="updateTime" label="更新时间" width="180" align="center">
             </el-table-column>
-            <el-table-column prop="paperStatus" label="试卷状态" align="center">
+            <!-- <el-table-column prop="paperStatus" label="试卷状态" align="center">
               <template slot-scope="scope">
                 <span>{{scope.row.paperStatus==1?'开启':'关闭'}}</span>
               </template>
-            </el-table-column>
-            <el-table-column prop="paperStatus" label="试卷操作" align="center">
+            </el-table-column> -->
+            <el-table-column prop="paperStatus" label="试卷操作" align="center" width="180" >
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -128,6 +130,7 @@
             id="dialogVisiblePaperDetail"
             top="10vh"
             class="abow_dialog dialogVisiblePaperDetail"
+            width="60%"
           >
             <el-tabs v-model="activeNamedialogVisible" type="card">
               <el-tab-pane label="试题详情" name="first">
@@ -830,7 +833,7 @@ export default {
       }
     };
     var chooseContentPass = (rule, value, callback) => {
-      console.log(value);
+
       let set = new Set(value);
       if (value.length != this.questionForm.choiceTypeText.choiceCount) {
         callback(new Error("答案选项不能为空"));
@@ -843,7 +846,7 @@ export default {
     };
     var mustNumberPass = (rule, value, callback) => {
       let RegExp = /[0-9]+/g;
-      console.log(value);
+
       if (!RegExp.test(value)) {
         callback(new Error("不能为空且为数字"));
       } else {
@@ -949,7 +952,7 @@ export default {
       },
       dialogVisibleChange: false,
 
-      courseSearch: "",
+      paperSearch: "",
       classNewList: [],
       classList: [],
 
@@ -1055,10 +1058,12 @@ export default {
     };
   },
   watch: {
-    courseSearch() {},
-    // defaultProps(val){
-    //   console.log(val);
-    // }
+    paperSearch(val) {
+       let regexp = new RegExp(val);
+      this.myPaperNewList = this.myPaperList.filter(
+        (item) => regexp.test(item.paperName)
+      );
+    },
     // ["questionTreeForm.imgUrl"]() {
     //   console.log(this.questionTreeForm.imgUrl);
     // },
@@ -1075,7 +1080,7 @@ export default {
         if (validate) {
           this.updatePaper();
         } else {
-          console.log("error");
+          
           return false;
         }
       });
@@ -1103,12 +1108,12 @@ export default {
       });
     },
     uploadFile(file) {
-      console.log(file);
+      
       this.questionForm.fileData.append("files", file.file); // append增加数据
-      console.log(this.questionForm.fileData);
+      
     },
     handleFileChange(file) {
-      console.log(file);
+      
       this.questionForm.imgUrl.push(file);
     },
     //移除文件
@@ -1136,14 +1141,11 @@ export default {
         data: formData,
       })
         .then((res) => {
-          console.log("上传图片成功");
           // console.log(res.data);
           let url = res.data;
-          console.log(url);
           this.urlmysql(url);
         })
         .catch(() => {
-          console.log("图片上传失败");
         });
     },
 
@@ -1179,9 +1181,7 @@ export default {
           paperId: this.paperDetailInformations.paperId,
           questionId: this.questionTreeForm.questionId,
         },
-      }).then((res) => {
-        console.log(res);
-      });
+      })
     },
     beforeAvatarUpload(file) {
       const isPic = file.type.indexOf("image") >= 0;
@@ -1361,7 +1361,6 @@ export default {
       }
 
       if (questionType[0] == "judgement") {
-        console.log("judgement");
         this.questionTreeForm.judgementTypeText.chooseContent =
           v.questionContent;
         this.questionTreeForm.judgementTypeText.radio = v.answer;
@@ -1371,8 +1370,6 @@ export default {
         this.questionTreeForm.shortAnswerTypeText.answer = v.answer;
       }
       this.activeTreeNode = v;
-      console.log(v);
-      console.log("end");
     },
     handleNodeClick() {},
 
@@ -1413,7 +1410,6 @@ export default {
       this.questionTreeForm.questionType = "";
       // this.dialogVisiblePaperDetail = true;
       // this.getPaperQuestion(row);
-      console.log(this.paperDetailInformations);
       if (
         this.paperDetailInformations != row &&
         this.paperDetailInformations != null
@@ -1423,13 +1419,10 @@ export default {
       }
 
       this.paperDetailInformations = row;
-
-      console.log("row", row);
     },
 
     getPaperQuestion(row) {
       // this.treeReset();
-      console.log("treeReset");
       this.$request({
         url: "/api/paper/getPaperQuestion",
         method: "post",
@@ -1453,20 +1446,15 @@ export default {
         // this.$set(this.paperView,...data)
 
         this.paperView = data;
-        console.log("paperView", this.paperView);
         data.forEach((item, index) => {
-          // console.log(item);
+          
           item.id = index;
-          // console.log(item.answer);
           item.answer = JSON.parse(item.answer);
-          // console.log(item.questionContent);
           item.questionContent = JSON.parse(item.questionContent);
-          console.log(item);
           item.imgUrl = JSON.parse(item.imgUrl);
 
           switch (item.questionType) {
             case "choice singleChoice": {
-              console.log("danxuant");
               item.label = `单选题${
                 this.treeData[0].children[0].children.length + 1
               } ${item.questionName}`;
@@ -1530,7 +1518,6 @@ export default {
           }
         });
         // console.log(res.data.data);
-        console.log(this.treeData);
 
         //显示dialogVisiblePaperDetail
 
@@ -1573,7 +1560,6 @@ export default {
     addQuestionBtn() {
       this.$refs["questionForm"].validate((validate) => {
         if (validate) {
-          console.log("查看完成");
           this.uploadImageMore()
             .then((url) => {
               this.addQuestion(url);
@@ -1650,6 +1636,7 @@ export default {
           ...this.questionTreeForm,
           paperId: this.paperDetailInformations.paperId,
           questionContent: this.findQuestionTreeContent(),
+          
         },
       }).then((res) => {
         if (res.data.code == 1) {
@@ -1676,7 +1663,7 @@ export default {
         url: "/api/paper/getPaperList",
         method: "get",
       }).then((res) => {
-        console.log(res);
+        
         this.myPaperNewList = this.myPaperList = res.data.data;
       });
     },
@@ -1688,8 +1675,7 @@ export default {
           paperName: this.addPaperForm.paperName,
           // passMark
         },
-      }).then((res) => {
-        console.log("createPaper", res);
+      }).then(() => {
         this.getMyPaperList();
         this.dialogVisibleAddPaper = false;
       });
@@ -1737,7 +1723,6 @@ export default {
     },
     //删除指定paper
     handleDelete(index, row) {
-      console.log(row);
       this.$confirm("此操作将该试卷信息, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",

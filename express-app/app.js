@@ -46,23 +46,25 @@ app.use(cookieParser());
 
 
 //token验证
-app.use((req,res,next)=>{
-  let token = req.headers['authorization'];
-  // console.log(token);
-    if(token==undefined)
-    {
-      return next()
-    }
-    else{
-      jwt.verifyToken(token).then(data=>{
-        req.data = data
-        console.log('data',data);
-        return next()
-      }).catch(err=>{
-        return next()
-      })
-    }
-  })
+// app.use((req,res,next)=>{
+//   let token = req.headers['authorization'];
+//   // console.log('tokentoken',token);
+//     if(token==undefined)
+//     {
+//       return next()
+//     }
+//     else{
+//       jwt.verifyToken(token).then(data=>{
+//         req.data = data
+        
+//         console.log('dataasasas',data);
+//         return next()
+//       }).catch(err=>{
+//         console.log(222222222);
+//         return next()
+//       })
+//     }
+//   })
   
   
   //使用expressJWT验证token是否正确
@@ -73,8 +75,6 @@ app.use((req,res,next)=>{
     path:['/login','/register'],
   }))
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 app.use('/',userRoute)
 app.use('/api/class',classRoute)
 app.use('/api/paper',paperRoute)

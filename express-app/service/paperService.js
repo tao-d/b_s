@@ -12,9 +12,6 @@ module.exports = {
     //判断身份
     let role = await userService.checkRole(teacherId)
     let result = null
-    console.log(role);
-    // console.log(teacherId);
-    console.log(paperName);
     if (role == 'teacher') {
       result = await paperMysqlDao.paperInsert({
         teacherId,
@@ -28,9 +25,6 @@ module.exports = {
     //判断身份
     let role = await userService.checkRole(teacherId)
     // let result = null
-    console.log(role);
-    // console.log(teacherId);
-    console.log(imgUrl);
     if (role == 'teacher') {
       let resultImg = (await paperMysqlDao.questionSelect({
         paperId,
@@ -65,9 +59,6 @@ module.exports = {
     //判断身份
     let role = await userService.checkRole(teacherId)
     // let result = null
-    console.log(role);
-    // console.log(teacherId);
-    console.log(imgUrl);
     if (role == 'teacher') {
       let resultImg = (await paperMysqlDao.questionSelect({
         paperId,
@@ -423,7 +414,7 @@ module.exports = {
       questionAnalysis = (questionAnalysis)
       answer = JSON.stringify(answer)
       questionItemContent = JSON.stringify(questionContent.chooseContent)
-
+      console.log(1);
       //question更新
       result = await paperMysqlDao.questionUpdate({
         paperId,
@@ -433,7 +424,7 @@ module.exports = {
         questionType: type,
         questionName,
         answer,
-        questionContent: questionItemContent,
+        questionContent: questionItemContent==undefined?null:questionItemContent,
         questionMark: Number(questionMark),
         questionAnalysis,
       })

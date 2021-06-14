@@ -7,7 +7,6 @@ router.post('/login',async(req,res)=>{
   let password = req.body.password;
   // let result = await mysqlUser.checkUser(username,password)
   let {token,role,userName} = await userService.loginService({account:username,password:password})
-  console.log(token);
   if(token){
     res.json({
       msg:'success',
@@ -52,7 +51,6 @@ router.post('/delete',async(req,res)=>{
 router.post('/changePassword',async(req,res)=>{
   let query = req.body
   let result = await userService.userChangePasswordService(req.user,query.oldPassword,query.newPassword)
-  // console.log(result);
   if(result.code==1){
     res.json({
       msg:'success',
@@ -70,7 +68,6 @@ router.post('/changePassword',async(req,res)=>{
 router.get('/getStudent',async(req,res)=>{
   let param = req.params
   // let result = 
-  // console.log(result);
   if(result.code==1){
     res.json({
       msg:'success',

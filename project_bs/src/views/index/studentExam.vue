@@ -421,44 +421,6 @@ export default {
       //   },
       // ],
 
-      testData: [
-        /**
-           * questionType: "singleChoice",
-            questionName: "我是哈哈",
-            questionContent: [
-              "终端、电缆、计算机",
-              "信号发生器、通信线路、信号接收设备",
-              "信源、通信媒体、信宿 ",
-              "终端、通信设施、接收设备",
-            ],
-            order:1,
-            studentAnswer:'',
-         */
-        {
-          questionType: "choice singleChoice",
-          questionName: "通信系统必须具备的三个基本要素是",
-          questionContent: [
-            "终端、电缆、计算机",
-            "信号发生器、通信线路、信号接收设备",
-            "信源、通信媒体、信宿 ",
-            "终端、通信设施、接收设备",
-          ],
-          order: 1,
-          studentAnswer: "",
-        },
-        {
-          questionType: "choice singleChoice",
-          questionName: "我是哈哈",
-          questionContent: [
-            "终端、电缆、计算机",
-            "信号发生器、通信线路、信号接收设备",
-            "信源、通信媒体、信宿 ",
-            "终端、通信设施、接收设备",
-          ],
-          order: 2,
-          studentAnswer: "",
-        },
-      ],
       singleChoiceList: [],
       multipleChoiceList: [],
       judgementList: [],
@@ -491,13 +453,15 @@ export default {
     this.getServerTime();
     this.getExamQuestion().then(() => {
       this.activeQuestion = this.singleChoiceList[this.activeIndex];
-      console.log(this.activeQuestion);
-      console.log(this.activeIndex);
+      this.localAnswer()
       this.getExamInformations().then(() => {
         this.countdownTest();
       });
     });
   },
+mounted () {
+   
+},
 
   methods: {
     //放大图片事件
@@ -629,7 +593,6 @@ export default {
           }
         });
 
-        console.log(this.singleChoiceList);
       });
     },
     getExamInformations() {
@@ -735,6 +698,7 @@ export default {
       }).then((res) => {
         console.log(res);
         this.isExamingBool = false;
+        window.localStorage.removeItem(`${this.$route.query.examId}`)
         this.$router.go(0);
       });
     },
@@ -769,8 +733,72 @@ export default {
 
     optionClick({ studentAnswer }) {
       this.activeQuestion.studentAnswer = studentAnswer;
-      console.log(this.activeQuestion.studentAnswer);
-      console.log(this.singleChoiceList);
+      //本地缓存
+      if(window.localStorage.getItem(`${this.$route.query.examId}`)==null)
+      {
+        window.localStorage.setItem(`${this.$route.query.examId}`,JSON.stringify([{
+          questionId:this.activeQuestion.questionId,
+          studentAnswer:this.activeQuestion.studentAnswer
+        }]))
+      }
+      else{
+        console.log('不是null');
+        let result = JSON.parse(window.localStorage.getItem(`${this.$route.query.examId}`))
+        let resultQuestionId = result.find(item=>item.questionId==this.activeQuestion.questionId)
+        //当questionId不存在
+        console.log(resultQuestionId);
+        if(!resultQuestionId)
+        {
+          result.push({
+            questionId:this.activeQuestion.questionId,
+            studentAnswer:this.activeQuestion.studentAnswer
+          })
+        }
+        else{
+          resultQuestionId.studentAnswer = this.activeQuestion.studentAnswer
+        }
+        window.localStorage.setItem(`${this.$route.query.examId}`,JSON.stringify(result))
+      }
+    },
+    localAnswer(){
+      let result = JSON.parse(window.localStorage.getItem(`${this.$route.query.examId}`))
+      if(!result){
+        return
+      }
+      result.forEach(item=>{
+        let resultItem = null
+        resultItem = this.singleChoiceList.find(item1=>item1.questionId==item.questionId)
+        if(resultItem)
+        {
+          resultItem.studentAnswer = item.studentAnswer
+          return true
+        }
+        resultItem = this.multipleChoiceList.find(item1=>item1.questionId==item.questionId)
+        if(resultItem)
+        {
+          resultItem.studentAnswer = item.studentAnswer
+          return true
+        }
+        resultItem = this.judgementList.find(item1=>item1.questionId==item.questionId)
+        if(resultItem)
+        {
+          resultItem.studentAnswer = item.studentAnswer
+          return true
+        }
+        resultItem = this.completionList.find(item1=>item1.questionId==item.questionId)
+        if(resultItem)
+        {
+          resultItem.studentAnswer = item.studentAnswer
+          return true
+        }
+        resultItem = this.shortAnswerList.find(item1=>item1.questionId==item.questionId)
+        if(resultItem)
+        {
+          resultItem.studentAnswer = item.studentAnswer
+          return true
+        }
+      })
+      
     },
     nextBtn() {
       console.log(1);
@@ -783,6 +811,23 @@ export default {
       if (this.activeIndex > 0) {
         this.activeIndex--;
       }
+    },
+    closeTip() {
+      let _this = this;
+      window.onbeforeunload = function (e) {
+        if (_this.$route.name == "examing") {
+          alert(1)
+          e = e || window.event;
+          // 兼容IE8和Firefox 4之前的版本
+          if (e) {
+            e.returnValue = "关闭提示1111";
+          }
+          // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+          return "关闭提示222";
+        } else {
+          window.onbeforeunload = null;
+        }
+      };
     },
   },
   beforeRouteEnter(to, from, next) {

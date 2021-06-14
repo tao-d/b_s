@@ -6,6 +6,21 @@ import request from './network/request.js'
 import moment from 'moment'
 import * as echarts from 'echarts'
 //import {request, requestMysql} from './network/index'
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// 导入富文本编辑器样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+// import Quill from 'quill's
+// import { ImageExtend} from 'quill-image-extend-module'
+// import ImageResize from 'quill-image-resize-module'
+// Quill.register('modules/ImageExtend', ImageExtend)
+// Quill.register('modules/imageResize', ImageResize)
+// 将富文本编辑器，注册为全局可用组件
+// Vue.use(Quill)
+Vue.use(VueQuillEditor)
+
 
 
 

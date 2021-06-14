@@ -40,34 +40,11 @@
           label="我的成绩"
           align="center"
           class="addStudent"
+          
         >
-          <!-- <template slot-scope="scope" class="addStudent">
-                <el-row>
-                  <el-col :span="16"
-                    ><span>{{ scope.row.studentCount }}</span></el-col
-                  >
-                  <el-col :span="4">
-                    <el-button
-                      size="mini"
-                      @click="handleAddStudent(scope.$index, scope.row)"
-                      type="primary"
-                      icon="el-icon-plus"
-                      circle
-                      class="addStudent"
-                    ></el-button>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-button
-                      size="mini"
-                      @click="handleStudentListDetail(scope.$index, scope.row)"
-                      type="primary"
-                      icon="el-icon-view"
-                      circle
-                      class="addStudent"
-                    ></el-button>
-                  </el-col>
-                </el-row>
-              </template> -->
+         <template slot-scope="scope">
+            {{scope.row.examStatus==3?scope.row.studentGrade:'未批阅'}}
+          </template>
         </el-table-column>
         <el-table-column prop="examStatus" label="考试状态" align="center" class="tags">
           <template slot-scope="scope">
@@ -132,7 +109,6 @@ export default {
         url:'/api/exam/getStudentFinishExamList',
         method:'get',
       }).then(res=>{
-        console.log(res);
         this.examMarkList = this.examMarkNewList = res.data.data
       })
     },

@@ -224,12 +224,10 @@ export default {
   },
   created() {
     this.updateData();
-    console.log(this.dataList);
   },
   watch: {
     dataList() {
       this.updateData();
-      // console.log(this.dataList);
     },
   },
   data() {
@@ -267,7 +265,6 @@ export default {
     caculateMark(type) {
       let allMark = this.dataList.reduce((total, item) => {
         if (item.questionType == type) {
-          console.log(item.questionMark);
           return total + Number(item.questionMark);
         } else {
           return total + 0;

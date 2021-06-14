@@ -131,19 +131,25 @@
           />
         </li>
       </ul>
-      <el-input
+      <!-- <el-input
         type="textarea"
         :rows="8"
         placeholder="请输入内容"
         v-model="optionModel"
         :class="{'answer-text':imgUrl.length>0,'img-answer-text':imgUrl.length==0}"
       >
-      </el-input>
+      </el-input> -->
+      <quill-editor
+            v-model="optionModel"
+            ref="myQuillEditor"
+            :options="editorOption"
+        ></quill-editor>
     </div>
   </div>
 </template>
 
 <script>
+// import toolbarOptions from '@/components/toolbarOptions.js'
 export default {
   name: "examOptionItem",
   data() {
@@ -151,6 +157,35 @@ export default {
       optionModel: this.optionModelValue,
       optionType: this.optionTypeValue,
       // optionMyAnswer:'',
+      // editorOption: {
+      //   scrollingContainer: '#editorcontainer',
+      //   placeholder: '请作答',
+      //   // or 'bubble'
+      //   theme: 'snow',
+      //   modules: {
+      //     // imageResize: {
+      //     //   displayStyles: {
+      //     //     backgroundColor: 'black',
+      //     //     border: 'none',
+      //     //     color: 'white'
+      //     //   },
+      //     //   modules: ['Resize', 'DisplaySize', 'Toolbar']
+      //     // },
+      //     toolbar: {
+      //       // 工具栏
+      //       container: toolbarOptions.toolbarOptions,
+      //       handlers: {
+      //         'image': function (value) {
+      //           if (value) {
+      //             console.log(value);
+      //           } else {
+      //             this.quill.format('image', false)
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
     };
   },
   watch: {
@@ -220,6 +255,11 @@ export default {
   .img-answer-text{
     margin-top: 5vh;
   }
+  /deep/.ql-editor {
+  min-height: 10rem;
 }
+}
+
+
 
 </style>

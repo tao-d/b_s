@@ -82,7 +82,7 @@
         <el-table-column
           prop="paperName"
           label="试卷题目"
-          width="180"
+          width="90"
           align="center"
         >
           <template slot-scope="scope">
@@ -102,6 +102,7 @@
           prop="questionCount"
           label="题目数量"
           align="center"
+          width="90"
         ></el-table-column>
         <el-table-column prop="paperMark" label="试卷总分" align="center">
         </el-table-column>
@@ -112,11 +113,11 @@
           class="passMark"
         >
         </el-table-column>
-        <el-table-column prop="updateTime" label="更新时间" align="center">
+        <el-table-column prop="updateTime" label="更新时间" align="center" width="180">
         </el-table-column>
-        <el-table-column prop="paperStatus" label="试卷状态" align="center">
-        </el-table-column>
-        <el-table-column prop="paperStatus" label="试卷操作" align="center">
+        <!-- <el-table-column prop="paperStatus" label="试卷状态" align="center">
+        </el-table-column> -->
+        <el-table-column prop="paperStatus" label="试卷操作" align="center" >
           <template slot-scope="scope">
             <el-button
               type="primary"

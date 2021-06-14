@@ -115,7 +115,7 @@ export default {
     var validatePass = (rule, value, callback) => {
       let RegExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/g;
       if (value.length < 8) {
-        console.log(value.length);
+
         callback(new Error("新密码需要大于8位"));
       }
       if (!RegExp.test(value)) {
@@ -164,7 +164,7 @@ export default {
           newPassword: this.passwordForm.newPassword,
         },
       }).then((res) => {
-        console.log(res);
+
         if (res.data.code == 1) {
           this.$notify({
             title: "修改成功",
@@ -190,10 +190,8 @@ export default {
           this.ifAlert = true;
           setTimeout(() => {
             this.ifAlert = false;
-            // this.$router.push("/login");
           }, 3000);
         } else {
-          console.log("submit error");
           return false;
         }
       });

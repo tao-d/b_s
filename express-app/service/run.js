@@ -314,6 +314,11 @@ class exams {
     }
   }
 
+  // //finish
+  // finishExam(){
+
+  // }
+
   clearTimer(){
     this.init.clearTimer()
   }

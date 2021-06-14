@@ -6,10 +6,7 @@ const uuid = require('uuid')
 
 router.post('/createPaper', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.createPaper(req.user, query)
-
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -28,7 +25,6 @@ router.post('/createPaper', async (req, res) => {
 router.post('/deletePaper', async (req, res) => {
   let query = req.body
   let result = await paperService.deletePaper(req.user, query)
-  // console.log(result);
   if (result.code == 1) {
     res.json({
       msg: 'success',
@@ -47,7 +43,6 @@ router.post('/deletePaper', async (req, res) => {
 router.post('/updatePaper', async (req, res) => {
   let query = req.body
   let result = await paperService.updatePaper(req.user, query)
-  // console.log(result);
   if (result.code == 1) {
     res.json({
       msg: 'success',
@@ -64,7 +59,6 @@ router.post('/updatePaper', async (req, res) => {
 
 router.get('/getPaperList', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.getPaperList(req.user)
   if (result) {
     res.json({
@@ -87,9 +81,7 @@ router.get('/getPaperList', async (req, res) => {
 
 router.post('/appendQuestion', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.appendQuestion(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -106,9 +98,7 @@ router.post('/appendQuestion', async (req, res) => {
 
 router.post('/getPaperQuestion', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.getPaperQuestion(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -126,9 +116,7 @@ router.post('/getPaperQuestion', async (req, res) => {
 
 router.post('/removeQuestion', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.removeQuestion(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -147,9 +135,7 @@ router.post('/removeQuestion', async (req, res) => {
 
 router.post('/updateQuestion', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.updateQuestion(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -167,9 +153,7 @@ router.post('/updateQuestion', async (req, res) => {
 
 router.post('/urlMysql', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.updateImgUrl(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -187,9 +171,7 @@ router.post('/urlMysql', async (req, res) => {
 
 router.post('/urlRemove', async (req, res) => {
   let query = req.body
-  console.log(query);
   let result = await paperService.removeImgUrl(req.user, query)
-  console.log(result);
   if (result) {
     res.json({
       msg: 'success',
@@ -231,7 +213,6 @@ router.post('/uploadImg', upload.single('file'), (req, res) => {
 router.post('/uploadImgMore', upload.array('files', 8), (req, res) => {
   //给客户端返回图片的访问地址 域名 + 文件名字 
   //因为在 app.js文件里面我们已经向外暴漏了存储图片的文件夹 uploa
-  console.log(req.files);
   const url = []
   // for (var i = 0; i < req.files.length; i++) {
   //   var newName = req.files[i].path + pathLib.parse(req.files[i].originalname).ext;

@@ -234,6 +234,7 @@
         id="dialogVisibleChange"
         v-if="dialogVisibleChange"
         top="10vh"
+        
       >
         <div class="dialogVisible-content">
           <el-form
@@ -325,6 +326,7 @@
         id="dialogVisibleAddStudent"
         v-if="dialogVisibleAddStudent"
         top="10vh"
+        width="60%"
       >
         <div class="dialogVisible-content">
           <el-transfer
@@ -354,6 +356,7 @@
         v-if="dialogVisibleStudentDetail"
         class="abow_dialog"
         top="10vh"
+        width="60%"
       >
         <div class="search">
           <el-input
@@ -372,14 +375,14 @@
           <el-table-column
             prop="account"
             label="学号"
-            width="180"
+            width="90"
             align="center"
           >
           </el-table-column>
           <el-table-column
             prop="classOrder"
             label="班级序号"
-            width="180"
+            width="90"
             align="center"
           >
           </el-table-column>
@@ -494,83 +497,7 @@ export default {
 
       transferValue: "",
 
-      tableData: [
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          course: "2016-05-02",
-          className: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
+
     };
   },
   created() {

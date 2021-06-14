@@ -196,7 +196,7 @@ export default {
       }).then((res) => {
         this.myInformations = res.data;
         this.$store.commit('setUser',res.data)
-        console.log(res);
+
       });
     },
 
@@ -204,8 +204,6 @@ export default {
       window.localStorage.removeItem('token')
       this.$router.replace('/login')
     },
-
-
     clickExamItem(event) {
       console.log(this.$refs);
       console.log(event);

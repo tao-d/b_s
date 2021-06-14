@@ -33,19 +33,23 @@
       </div>
       <div class="mark-detail-echart">
         <!-- 成绩分布 -->
-        <div id="main" style="width: 600px; height: 400px"></div>
+        <div id="main" style="width: 400px; height: 400px"></div>
         <!-- 合格人数 -->
-        <div id="hgrs" style="width: 600px; height: 400px"></div>
+        <div id="hgrs" style="width: 400px; height: 400px"></div>
         <!-- 各题正确率 -->
-        <div id="singleCorrect" style="width: 1200px; height: 400px"></div>
+        <div id="singleCorrect" style="width: 400px; height: 400px"></div>
         <!-- 各题正确率 -->
-        <div id="multipleCorrect" style="width: 1200px; height: 400px"></div>
+        <div id="multipleCorrect" style="width: 400px; height: 400px"></div>
         <!-- 各题正确率 -->
-        <div id="judgementCorrect" style="width: 1200px; height: 400px"></div>
+        <div id="judgementCorrect" style="width: 400px; height: 400px"></div>
       </div>
       <div class="mark-detail-student" v-if="activeExam != ''">
         <p class="title">成绩详细</p>
+          <b class="mark-informations" style="margin:40px 0px 0px 20px">
+            平均分:{{avgGrade()}}
+          </b>
         <div class="mark-detail-top">
+
           <div class="search">
             搜索
             <el-input
@@ -182,6 +186,7 @@
             v-if="dialogVisibleMarkDetail"
             class="abow_dialog"
             top="10vh"
+            width="60%"
           >
             <el-card class="card-content">
               <div class="student-informations">
@@ -1002,6 +1007,20 @@ export default {
       myChart.setOption(optionCorrect);
       // console.log(this);
     },
+    avgGrade(){
+      if(this.studentGradeNewList.length>0)
+      {
+        return this.studentGradeNewList.reduce((total,item)=>{
+          console.log(typeof item.studentGrade);
+          console.log(total);
+          return total+Number(item.studentGrade)
+        },0)/this.studentGradeNewList.length.toFixed(1)
+        
+      }
+      else{
+        return 0
+      }
+    },
 
     //定义导出Excel表格事件
     exportExcel() {
@@ -1083,6 +1102,7 @@ export default {
     .title {
       font-size: 28px;
       // margin-left:60px ;
+      margin-bottom: 20px;
       position: relative;
       &::before {
         content: "";

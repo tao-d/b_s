@@ -34,7 +34,7 @@
           <el-table-column
             prop="examMark"
             label="考试总分"
-            width="180"
+            width="80"
             align="center"
           >
           </el-table-column>
@@ -42,19 +42,20 @@
             prop="examStudentCount"
             label="考试人数"
             align="center"
+            width="80"
           >
           </el-table-column>
           <el-table-column
             prop="passMark"
             label="通过分数"
             align="center"
-            class="addStudent"
           >
           </el-table-column>
           <el-table-column
             prop="examStudentCount"
             label="开始时间"
             align="center"
+            width="180"
           >
             <template slot-scope="scope">
               {{ $moment(scope.row.startTime).format("YYYY-MM-DD HH:mm:ss") }}
@@ -64,6 +65,7 @@
             prop="examStudentCount"
             label="结束时间"
             align="center"
+            width="180"
           >
             <template slot-scope="scope">
               {{ $moment(scope.row.endTime).format("YYYY-MM-DD HH:mm:ss") }}
@@ -80,10 +82,11 @@
             prop="handle"
             label="操作"
             align="center"
-            min-width="200px"
+            min-width="300px"
           >
             <template slot-scope="scope">
               <el-button
+                class="btn"
                 size="mini"
                 @click="handleClose(scope.row)"
                 :disabled="
@@ -92,6 +95,7 @@
                 >关闭</el-button
               >
               <el-button
+              class="btn"
                 size="mini"
                 type="success"
                 @click="handleOpen(scope.row)"
@@ -99,6 +103,7 @@
                 >开启</el-button
               >
               <el-button
+              class="btn"
                 size="mini"
                 type="primary"
                 @click="handleEdit(scope.row)"
@@ -106,6 +111,7 @@
                 >编辑考试</el-button
               >
               <el-button
+              class="btn"
                 size="mini"
                 type="danger"
                 @click="handleDelete(scope.row)"
@@ -113,6 +119,7 @@
                 >删除</el-button
               >
             </template>
+
           </el-table-column>
         </el-table>
         <div class="pagination">
@@ -447,8 +454,8 @@ export default {
           }).then((res) => {
             if (res.data.code == 1) {
               this.$notify({
-                title: "关闭成功",
-                message: "考试关闭成功",
+                title: "删除成功",
+                message: "考试删除成功",
                 duration: 3000,
                 type: "success",
               });
