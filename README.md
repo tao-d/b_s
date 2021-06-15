@@ -1,7 +1,7 @@
 # 网上在线考试系统
 
-# project_bs为项目前端代码 vue 
-# express-app为项目后端代码 node.js express
+## project_bs为项目前端代码 vue 
+## express-app为项目后端代码 node.js express
 ## Project setup
 ```
 npm install
